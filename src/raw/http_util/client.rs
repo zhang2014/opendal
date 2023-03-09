@@ -68,7 +68,10 @@ impl HttpClient {
             #[cfg(feature = "trust-dns")]
             let builder = builder.dns_resolver(Arc::new(AsyncTrustDnsResolver::new().unwrap()));
             #[cfg(not(feature = "trust-dns"))]
-            let builder = builder.dns_resolver(Arc::new(AsyncStdDnsResolver::default()));
+            {
+                println!("not trust-dns");
+                let builder = builder.dns_resolver(Arc::new(AsyncStdDnsResolver::default()));
+            }
 
             builder.build().map_err(|err| {
                 Error::new(ErrorKind::Unexpected, "async client build failed").set_source(err)
