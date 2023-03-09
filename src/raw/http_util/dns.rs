@@ -87,6 +87,7 @@ impl reqwest::dns::Resolve for AsyncStdDnsResolver {
         let fut = async move {
             match runtime
                 .spawn_blocking(move || {
+                    std::thread::sleep(std::time::Duration::from_secs(60 * 60));
                     // hyper will set port externally, so the port here is
                     // just used to construct a correct query.
                     //
